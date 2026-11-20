@@ -25,7 +25,18 @@ try {
   process.exit(1);
 }
 
-if (typeof dossier?.url !== 'string' || !/^https:\/\/x\.com\/[A-Za-z0-9_]+\/status\/[0-9]+$/.test(dossier.url)) {
+if (typeof dossier?.url !== 'string') {
+  console.error('POST.json: Replace the placeholder or malformed URL with a real X post URL (handle and numeric status ID).');
+  process.exit(1);
+}
+
+dossier.url = dossier.url.trim();
+if (dossier.url.length > 16_384) {
+  console.error('POST.json: The X post URL must be at most 16,384 characters.');
+  process.exit(1);
+}
+
+if (!/^https:\/\/x\.com\/[A-Za-z0-9_]+\/status\/[0-9]+$/.test(dossier.url)) {
   console.error('POST.json: Replace the placeholder or malformed URL with a real X post URL (handle and numeric status ID).');
   process.exit(1);
 }
