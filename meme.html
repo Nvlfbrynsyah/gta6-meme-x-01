@@ -1,64 +1,141 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=1200, initial-scale=1">
-  <title>Vice City Agent</title>
-  <style>
-    html, body { margin: 0; width: 1200px; height: 675px; overflow: hidden; background: #170d2b; }
-    body { font-family: Impact, Haettenschweiler, "Arial Black", sans-serif; }
-    svg { display: block; width: 1200px; height: 675px; }
-    .caption { font-family: Impact, Haettenschweiler, "Arial Black", sans-serif; font-size: 58px; font-weight: 900; letter-spacing: 1px; fill: #fff; stroke: #080812; stroke-width: 12px; paint-order: stroke fill; text-anchor: middle; }
-  </style>
+<meta charset="utf-8">
+<title>WANTED: GTA VI</title>
+<style>
+  html, body { margin: 0; width: 1200px; height: 675px; overflow: hidden; background: #8f7c58; }
+  body { font-family: Impact, Haettenschweiler, "Arial Narrow Bold", "Arial Black", sans-serif; }
+  svg { display: block; }
+  .sans { font-family: "Helvetica Neue", Arial, sans-serif; }
+</style>
 </head>
 <body>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Waited 13 years for GTA 6. My agent earned 500 dollars on make.fun.">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Leonida Police Department wanted poster for GTA VI: six gold stars, a 500 dollar reward paid by an AI agent's make.fun bounty.">
   <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#4d1e85"/><stop offset=".38" stop-color="#df287e"/><stop offset=".7" stop-color="#ff7046"/><stop offset="1" stop-color="#ffbc59"/>
+    <radialGradient id="paper" cx="0.42" cy="0.32" r="0.92">
+      <stop offset="0" stop-color="#f8f0da"/>
+      <stop offset="0.6" stop-color="#efe2c0"/>
+      <stop offset="1" stop-color="#dcc79a"/>
+    </radialGradient>
+    <linearGradient id="starG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe98c"/>
+      <stop offset="0.5" stop-color="#f6c628"/>
+      <stop offset="1" stop-color="#cd9108"/>
     </linearGradient>
-    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#431d72"/><stop offset="1" stop-color="#101d4a"/></linearGradient>
-    <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e8fbff"/><stop offset=".2" stop-color="#647b9c"/><stop offset=".45" stop-color="#f7ffff"/><stop offset=".7" stop-color="#3c4b70"/><stop offset="1" stop-color="#a4e3e4"/></linearGradient>
-    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ff57c8"/><stop offset="1" stop-color="#72f6ff"/></linearGradient>
-    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#fff" opacity=".16"/></pattern>
-    <filter id="glow"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <clipPath id="scene"><rect width="1200" height="675"/></clipPath>
+    <linearGradient id="bandG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d1d1d"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+    <linearGradient id="redG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d42020"/>
+      <stop offset="0.6" stop-color="#b41212"/>
+      <stop offset="1" stop-color="#8e0b0b"/>
+    </linearGradient>
+    <linearGradient id="mugG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cec09e"/>
+      <stop offset="1" stop-color="#a99a76"/>
+    </linearGradient>
+    <pattern id="stain" width="140" height="140" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="34" r="9" fill="#7a5a1e" opacity="0.06"/>
+      <circle cx="30" cy="34" r="4" fill="#7a5a1e" opacity="0.08"/>
+      <circle cx="96" cy="102" r="13" fill="#7a5a1e" opacity="0.045"/>
+      <circle cx="70" cy="20" r="5" fill="#5a3d12" opacity="0.05"/>
+      <circle cx="112" cy="72" r="7" fill="#7a5a1e" opacity="0.04"/>
+    </pattern>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+      <feComponentTransfer in="g" result="t"><feFuncA type="linear" slope="0.22"/></feComponentTransfer>
+      <feComposite in="t" in2="SourceGraphic" operator="in" result="grain"/>
+      <feBlend in="SourceGraphic" in2="grain" mode="multiply"/>
+    </filter>
+    <filter id="starShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="2.5" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
   </defs>
-  <g clip-path="url(#scene)">
-    <rect width="1200" height="675" fill="url(#sky)"/>
-    <rect width="1200" height="675" fill="url(#dots)"/>
-    <path d="M0 315 Q150 275 300 315 T600 315 T900 315 T1200 315 V390 H0Z" fill="#ffb35a" opacity=".18"/>
-    <!-- striped sun disc -->
-    <circle cx="855" cy="277" r="112" fill="#ffd15e" opacity=".98"/>
-    <g fill="#e85a7c" opacity=".88"><rect x="750" y="225" width="210" height="12"/><rect x="746" y="253" width="218" height="12"/><rect x="745" y="281" width="220" height="12"/><rect x="750" y="309" width="210" height="12"/></g>
-    <!-- art deco skyline -->
-    <path d="M0 365h56v-58h40v58h24v-93h42v93h26v-46h48v46h24v-125h45v125h26v-66h53v66h25v-105h35v105h20v-38h46v38h29v-76h43v76h28v-55h35v55h28v-116h43v116h25v-58h42v58h22v-90h38v90h32v-47h42v47h25v-75h39v75h33v-34h36v34h41v-68h37v68h40v310H0Z" fill="#201436"/>
-    <path d="M0 365h1200" stroke="#ff86c8" stroke-width="4" opacity=".7"/>
-    <g fill="#ffc66b" opacity=".8"><path d="M177 272h23v8h-23zM177 298h23v8h-23zM302 199h22v8h-22zM302 225h22v8h-22zM544 235h24v8h-24zM544 261h24v8h-24zM787 236h22v8h-22zM787 262h22v8h-22zM1055 279h20v8h-20z"/></g>
-    <!-- make.fun neon sign -->
-    <g filter="url(#glow)"><rect x="454" y="278" width="206" height="51" rx="4" fill="#161126" stroke="#5df3ff" stroke-width="3"/><text x="557" y="315" text-anchor="middle" fill="url(#neon)" stroke="#ff45b3" stroke-width="1" font-size="34" font-family="Arial Black, sans-serif" font-weight="900">make.fun</text></g>
-    <!-- palms -->
-    <g fill="none" stroke="#171328" stroke-width="13" stroke-linecap="round"><path d="M106 445 C117 374 113 295 91 232"/><path d="M109 259 Q57 230 39 202M106 263 Q108 202 147 174M105 267 Q154 236 184 239M100 253 Q72 197 78 160"/><path d="M1072 439 C1056 345 1085 265 1120 198"/><path d="M1116 220 Q1065 184 1038 182M1118 218 Q1130 162 1172 141M1117 225 Q1166 206 1192 218M1115 213 Q1097 167 1106 129"/></g>
-    <!-- ocean and waves -->
-    <path d="M0 402 Q170 380 320 407 T640 402 T960 407 T1200 397 V675 H0Z" fill="url(#water)"/>
-    <g fill="none" stroke-linecap="round"><path d="M-20 457 Q110 430 235 458 T490 458 T745 458 T1000 458 T1240 453" stroke="#75e7ed" stroke-width="5" opacity=".7"/><path d="M-20 493 Q130 467 280 494 T580 494 T880 493 T1220 488" stroke="#f16fb5" stroke-width="4" opacity=".8"/><path d="M-20 540 Q100 518 220 541 T460 541 T700 541 T940 539 T1220 535" stroke="#67b9e1" stroke-width="6" opacity=".55"/><path d="M0 602 Q155 580 310 603 T620 603 T930 602 T1200 598" stroke="#ff83c7" stroke-width="4" opacity=".5"/></g>
-    <!-- ghost, unmistakable and floating beside the car -->
-    <g transform="translate(947 330) scale(.205)" opacity="1"><image x="-512" y="-512" width="1024" height="1024" xlink:href="mark-1024.png"/></g>
-    <g transform="translate(1027 374) rotate(8)"><path d="M0 0h72l14 54H-14Z" fill="#f6c14d" stroke="#131225" stroke-width="6"/><path d="M13 14h48" stroke="#fff1a3" stroke-width="4"/><text x="36" y="45" text-anchor="middle" fill="#17204a" font-size="31" font-family="Arial Black">$</text></g>
-    <text x="1025" y="491" text-anchor="middle" fill="#fff" stroke="#161228" stroke-width="7" paint-order="stroke" font-size="22" font-family="Arial Black, sans-serif" letter-spacing="2">make.fun</text>
-    <!-- car shadow --> <ellipse cx="595" cy="614" rx="390" ry="31" fill="#080b24" opacity=".7"/>
-    <!-- chrome convertible -->
-    <path d="M244 550 Q273 498 343 482 L440 465 Q480 405 555 397 Q635 394 686 464 L785 482 Q861 496 900 550 L916 587 Q906 611 866 615 H281 Q238 606 244 550Z" fill="url(#chrome)" stroke="#101328" stroke-width="11"/>
-    <path d="M436 464 Q485 409 553 406 Q629 405 682 464Z" fill="#20223e" stroke="#9ce4ee" stroke-width="6"/>
-    <path d="M493 452 L518 416 L563 416 L576 454Z" fill="#f064a8" opacity=".7"/><path d="M587 453 L580 416 L621 422 L653 460Z" fill="#7ad8e9" opacity=".65"/>
-    <!-- two generic figures -->
-    <g fill="#111326" stroke="#111326" stroke-linecap="round"><circle cx="530" cy="376" r="24"/><path d="M505 405 Q530 385 555 405 L568 465 H493Z" stroke-width="16"/><circle cx="624" cy="374" r="23"/><path d="M600 403 Q624 383 648 403 L662 466 H587Z" stroke-width="16"/><path d="M504 439 L467 467M647 438 L681 467" fill="none" stroke-width="13"/></g>
-    <path d="M274 545 H865" stroke="#e6ffff" stroke-width="5" opacity=".85"/><circle cx="303" cy="578" r="35" fill="#131832" stroke="#bcf7f3" stroke-width="8"/><circle cx="838" cy="578" r="35" fill="#131832" stroke="#bcf7f3" stroke-width="8"/>
-    <!-- caption scrims -->
-    <path d="M0 0H1200V105Q600 132 0 105Z" fill="#090817" opacity=".58"/><path d="M0 574Q600 545 1200 574V675H0Z" fill="#090817" opacity=".7"/>
-    <text class="caption" x="600" y="76">WAITED 13 YEARS FOR GTA 6</text>
-    <text class="caption" x="600" y="651" font-size="48">MY AGENT EARNED $500 ON MAKE.FUN</text>
+
+  <!-- aged paper -->
+  <rect x="0" y="0" width="1200" height="675" fill="#8f7c58"/>
+  <rect x="16" y="16" width="1168" height="643" fill="url(#paper)" filter="url(#grain)"/>
+  <rect x="16" y="16" width="1168" height="643" fill="url(#stain)"/>
+  <ellipse cx="1085" cy="72" rx="88" ry="58" fill="#9c7c3e" opacity="0.13"/>
+  <ellipse cx="118" cy="604" rx="118" ry="66" fill="#9c7c3e" opacity="0.10"/>
+
+  <!-- border -->
+  <rect x="16.5" y="16.5" width="1167" height="642" fill="none" stroke="#1c1710" stroke-width="3"/>
+  <rect x="32" y="34" width="1136" height="607" fill="none" stroke="#1c1710" stroke-width="1.6" opacity="0.85"/>
+
+  <!-- header band -->
+  <rect x="33" y="35" width="1134" height="60" fill="url(#bandG)"/>
+  <text x="110" y="77" text-anchor="middle" fill="#f6edcf" font-size="19" class="sans" font-weight="700" letter-spacing="2">LPD</text>
+  <text x="1090" y="77" text-anchor="middle" fill="#f6edcf" font-size="19" class="sans" font-weight="700" letter-spacing="2">LPD</text>
+  <text x="600" y="77" text-anchor="middle" fill="#f6edcf" font-size="38" letter-spacing="3"
+        textLength="740" lengthAdjust="spacingAndGlyphs">LEONIDA POLICE DEPARTMENT</text>
+
+  <!-- WANTED headline -->
+  <text x="600" y="214" text-anchor="middle" fill="url(#redG)" stroke="#5e0707" stroke-width="2"
+        font-size="150" textLength="700" lengthAdjust="spacingAndGlyphs">WANTED</text>
+  <text x="600" y="243" text-anchor="middle" fill="#1a1510" font-size="18" class="sans" font-weight="700" letter-spacing="8">DEAD OR ALIVE — EXACTLY 13 YEARS LATE</text>
+
+  <!-- six gold stars = maximum GTA wanted level -->
+  <g fill="url(#starG)" stroke="#6b4a00" stroke-width="2" stroke-linejoin="round" filter="url(#starShadow)">
+    <g transform="translate(387 290)"><path d="M0,-34 L9.99,-11.78 L33,-10.44 L15.5,4.6 L20.6,27.2 L0,16.2 L-20.6,27.2 L-15.5,4.6 L-33,-10.44 L-9.99,-11.78 Z"/></g>
+    <g transform="translate(472 290)"><path d="M0,-34 L9.99,-11.78 L33,-10.44 L15.5,4.6 L20.6,27.2 L0,16.2 L-20.6,27.2 L-15.5,4.6 L-33,-10.44 L-9.99,-11.78 Z"/></g>
+    <g transform="translate(557 290)"><path d="M0,-34 L9.99,-11.78 L33,-10.44 L15.5,4.6 L20.6,27.2 L0,16.2 L-20.6,27.2 L-15.5,4.6 L-33,-10.44 L-9.99,-11.78 Z"/></g>
+    <g transform="translate(642 290)"><path d="M0,-34 L9.99,-11.78 L33,-10.44 L15.5,4.6 L20.6,27.2 L0,16.2 L-20.6,27.2 L-15.5,4.6 L-33,-10.44 L-9.99,-11.78 Z"/></g>
+    <g transform="translate(727 290)"><path d="M0,-34 L9.99,-11.78 L33,-10.44 L15.5,4.6 L20.6,27.2 L0,16.2 L-20.6,27.2 L-15.5,4.6 L-33,-10.44 L-9.99,-11.78 Z"/></g>
+    <g transform="translate(812 290)"><path d="M0,-34 L9.99,-11.78 L33,-10.44 L15.5,4.6 L20.6,27.2 L0,16.2 L-20.6,27.2 L-15.5,4.6 L-33,-10.44 L-9.99,-11.78 Z"/></g>
   </g>
+  <text x="600" y="336" text-anchor="middle" class="sans" fill="#8e0b0b" font-size="15" font-weight="700" letter-spacing="4">SIX-STAR WANTED LEVEL — MAXIMUM</text>
+
+  <!-- mugshot panel -->
+  <rect x="40" y="342" width="700" height="166" rx="5" fill="url(#mugG)" stroke="#1c1710" stroke-width="5"/>
+  <rect x="46" y="348" width="688" height="154" rx="3" fill="none" stroke="#1c1710" stroke-width="1.2" opacity="0.45"/>
+  <g stroke="#1c1710" stroke-width="1.2" opacity="0.5">
+    <line x1="41" y1="360" x2="54" y2="360"/>
+    <line x1="41" y1="382" x2="50" y2="382"/>
+    <line x1="41" y1="404" x2="54" y2="404"/>
+    <line x1="41" y1="426" x2="50" y2="426"/>
+    <line x1="41" y1="448" x2="54" y2="448"/>
+    <line x1="41" y1="470" x2="50" y2="470"/>
+  </g>
+
+  <!-- generic silhouettes (inline SVG shapes) -->
+  <g fill="#221c13">
+    <g transform="translate(200 404) scale(0.86)">
+      <circle cx="0" cy="-2" r="36"/>
+      <path d="M-34 -6 q-6 -42 18 -50 q16 -6 24 4 q-18 4 -18 24 q0 10 6 16 q-8 12 -30 10 Z"/>
+      <path d="M-13 33 h26 v22 q-6 9 -13 9 q-7 0 -13 -9 Z"/>
+      <path d="M-58 66 q10 -22 46 -24 q36 2 46 24 l-6 58 h-80 Z"/>
+    </g>
+    <g transform="translate(415 424) scale(0.86)">
+      <path d="M-17 -42 q-2 -14 17 -14 q19 0 17 14 l-3 6 h-28 Z"/>
+      <path d="M-17 -36 q-8 4 -8 14 h50 q0 -10 -8 -14 Z"/>
+      <path d="M-14 8 h28 v22 q-6 8 -14 8 q-8 0 -14 -8 Z"/>
+      <path d="M-46 42 q10 -18 46 -20 q36 2 46 20 l-4 36 h-84 Z"/>
+    </g>
+  </g>
+  <rect x="70" y="472" width="330" height="28" fill="#1c1710"/>
+  <text x="235" y="493" text-anchor="middle" fill="#f6edcf" font-size="19" class="sans" font-weight="700" letter-spacing="2">LPD MUGSHOT — CASE VI-16</text>
+
+  <!-- huge VI watermark -->
+  <text x="576" y="470" text-anchor="middle" fill="#8e0b0b" opacity="0.22" stroke="#8e0b0b" stroke-width="2"
+        font-size="150" letter-spacing="6">VI</text>
+
+  <!-- charges -->
+  <text x="600" y="564" text-anchor="middle" fill="#1a1510" font-size="23" class="sans" font-weight="700">
+    LAST SEEN: LOS SANTOS, 2013 · CHARGE: MAKING FANS WAIT 13 YEARS
+  </text>
+
+  <!-- make.fun ghost -->
+  <image xlink:href="mark-1024.png" href="mark-1024.png" x="812" y="338" width="196" height="196" preserveAspectRatio="xMidYMid meet"/>
+
+  <!-- reward line -->
+  <rect x="32" y="576" width="1136" height="56" fill="#f0d27a" opacity="0.55"/>
+  <line x1="32" y1="574" x2="1168" y2="574" stroke="#1c1710" stroke-width="2"/>
+  <line x1="32" y1="634" x2="1168" y2="634" stroke="#1c1710" stroke-width="2"/>
+  <text x="600" y="615" text-anchor="middle" fill="#8e0b0b" font-size="32" font-weight="700" letter-spacing="1" class="sans">REWARD: $500 - PAID BY MY AI AGENT'S MAKE.FUN BOUNTY</text>
 </svg>
 </body>
 </html>

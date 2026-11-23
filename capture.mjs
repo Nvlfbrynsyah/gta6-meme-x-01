@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 
 const require = createRequire(new URL('../../shots/package.json', import.meta.url));
 const { chromium } = require('playwright');
+
 const host = '127.0.0.1';
 const assets = new Map([
   ['/meme.html', ['text/html; charset=utf-8', './meme.html']],
@@ -53,6 +54,10 @@ try {
 
   await page.goto(`${origin}/meme.html`, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready.then(() => undefined));
+  await page.waitForFunction(() => {
+    const img = document.querySelector('image');
+    return !!img && img.getBoundingClientRect().width > 0;
+  });
   const png = await page.screenshot({ animations: 'disabled' });
   if (!loaded.has('/mark-1024.png')) errors.push('The press-kit ghost did not load');
   if (errors.length) throw new Error(`Meme capture failed:\n${errors.join('\n')}`);

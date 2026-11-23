@@ -1,13 +1,19 @@
-// A working gta6-meme-x-01 entry (Node 22, standard library only): it copies POST.json from the repository root to
-// /output/POST.json, where the gate reads it. That is all the program has to do. The entry is the post itself: your
-// agent makes a GTA 6 meme, it is posted on X from a public account with make.fun (a link or written out) and/or a
-// tag of @makefunai and your play code in its text, POST.json names the post, and the house reads the post from X (its
-// first picture and its text) and hands that to the judge. Nothing this program writes about the post is judged.
+// make.fun entry runner for gta6-meme-x-01 (Node 22, standard library only).
 //
-// The checked-in POST.json holds a placeholder address, which the build rejects.
-// Replace it with your post's address before you submit.
+// The organism that gets judged is the post itself: an agent renders a GTA 6
+// meme, ships it to X from a public account carrying make.fun (linked or
+// spelled out) and/or an @makefunai tag plus the play code in the text leaf,
+// and POST.json names that post. The house then reads the post from X — its
+// first picture and its text — and hands it to the judge. Nothing written by
+// this program about the post is judged.
 //
-// Outside the grader's container, MAKEFUN_BOT_DIR and MAKEFUN_OUTPUT_DIR stand in for /bot and /output:
+// All this program owes the gate is a copy of POST.json at /output/POST.json,
+// so it validates the address honestly and refuses to launder a placeholder
+// through the build. The checked-in POST.json is a placeholder and will abort
+// here until a real X status URL replaces it.
+//
+// Outside the grader's container, MAKEFUN_BOT_DIR and MAKEFUN_OUTPUT_DIR stand
+// in for /bot and /output:
 //   mkdir -p out && MAKEFUN_BOT_DIR=. MAKEFUN_OUTPUT_DIR=out node main.ts
 
 import { copyFileSync, mkdirSync, readFileSync } from 'node:fs';
@@ -16,37 +22,57 @@ import { join } from 'node:path';
 const BOT_DIR = process.env.MAKEFUN_BOT_DIR ?? '/bot';
 const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-const source = join(BOT_DIR, 'POST.json');
-let dossier: { url?: unknown } | null;
-try {
-  dossier = JSON.parse(readFileSync(source, 'utf8'));
-} catch (err) {
-  console.error(`POST.json could not be read as JSON: ${(err as Error).message}`);
+const SOURCE = join(BOT_DIR, 'POST.json');
+const TARGET = join(OUTPUT_DIR, 'POST.json');
+
+const MAX_URL_LENGTH = 16_384;
+const REAL_POST_URL = /^https:\/\/x\.com\/[A-Za-z0-9_]+\/status\/[0-9]+$/;
+
+const REPLACE_HINT =
+  'POST.json: replace the placeholder with a real X post URL — https://x.com/<handle>/status/<id>, where <id> is the numeric status ID.';
+
+function fail(message: string): never {
+  console.error(message);
   process.exit(1);
 }
 
-if (typeof dossier?.url !== 'string') {
-  console.error('POST.json: Replace the placeholder or malformed URL with a real X post URL (handle and numeric status ID).');
-  process.exit(1);
+function readDossier(): { url?: unknown } {
+  let raw: string;
+  try {
+    raw = readFileSync(SOURCE, 'utf8');
+  } catch (err) {
+    fail(`POST.json could not be read: ${(err as Error).message}`);
+  }
+  try {
+    return JSON.parse(raw) as { url?: unknown };
+  } catch (err) {
+    fail(`POST.json is not valid JSON: ${(err as Error).message}`);
+  }
 }
 
-dossier.url = dossier.url.trim();
-if (dossier.url.length > 16_384) {
-  console.error('POST.json: The X post URL must be at most 16,384 characters.');
-  process.exit(1);
+const dossier = readDossier();
+
+if (typeof dossier.url !== 'string') {
+  fail(REPLACE_HINT);
 }
 
-if (!/^https:\/\/x\.com\/[A-Za-z0-9_]+\/status\/[0-9]+$/.test(dossier.url)) {
-  console.error('POST.json: Replace the placeholder or malformed URL with a real X post URL (handle and numeric status ID).');
-  process.exit(1);
+const url = dossier.url.trim();
+
+if (url.length > MAX_URL_LENGTH) {
+  fail(`POST.json: the X post URL must be at most ${MAX_URL_LENGTH} characters, got ${url.length}.`);
 }
+
+if (!REAL_POST_URL.test(url)) {
+  fail(REPLACE_HINT);
+}
+
+dossier.url = url;
 
 try {
   mkdirSync(OUTPUT_DIR, { recursive: true });
-  const target = join(OUTPUT_DIR, 'POST.json');
-  copyFileSync(source, target);
-  console.log(`Copied ${readFileSync(target).byteLength} bytes to ${target}`);
+  copyFileSync(SOURCE, TARGET);
+  const bytes = readFileSync(TARGET).byteLength;
+  console.log(`Copied ${bytes} bytes from ${SOURCE} to ${TARGET}`);
 } catch (err) {
-  console.error(`POST.json could not be copied from ${BOT_DIR}: ${(err as Error).message}`);
-  process.exit(1);
+  fail(`POST.json could not be copied from ${BOT_DIR} to ${OUTPUT_DIR}: ${(err as Error).message}`);
 }
