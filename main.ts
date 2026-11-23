@@ -1,16 +1,15 @@
 // make.fun entry runner for gta6-meme-x-01 (Node 22, standard library only).
 //
-// The organism that gets judged is the post itself: an agent renders a GTA 6
-// meme, ships it to X from a public account carrying make.fun (linked or
-// spelled out) and/or an @makefunai tag plus the play code in the text leaf,
-// and POST.json names that post. The house then reads the post from X — its
-// first picture and its text — and hands it to the judge. Nothing written by
-// this program about the post is judged.
+// The judged organism is the X post itself: an agent renders a GTA 6 meme,
+// ships it from a public account whose text carries make.fun (linked or
+// spelled out) and/or an @makefunai tag plus the play code, and POST.json
+// names that post. The house then reads the post from X -- its first picture
+// and its text -- and hands it to the judge.
 //
 // All this program owes the gate is a copy of POST.json at /output/POST.json,
 // so it validates the address honestly and refuses to launder a placeholder
-// through the build. The checked-in POST.json is a placeholder and will abort
-// here until a real X status URL replaces it.
+// through the build senses. The checked-in POST.json is a placeholder and
+// aborts here until a real X status URL replaces it.
 //
 // Outside the grader's container, MAKEFUN_BOT_DIR and MAKEFUN_OUTPUT_DIR stand
 // in for /bot and /output:
@@ -29,7 +28,7 @@ const MAX_URL_LENGTH = 16_384;
 const REAL_POST_URL = /^https:\/\/x\.com\/[A-Za-z0-9_]+\/status\/[0-9]+$/;
 
 const REPLACE_HINT =
-  'POST.json: replace the placeholder with a real X post URL — https://x.com/<handle>/status/<id>, where <id> is the numeric status ID.';
+  'POST.json: replace the placeholder with a real X post URL - https://x.com/<handle>/status/<id>, where <id> is the numeric status ID.';
 
 function fail(message: string): never {
   console.error(message);
@@ -63,6 +62,15 @@ if (url.length > MAX_URL_LENGTH) {
 }
 
 if (!REAL_POST_URL.test(url)) {
+  let hostRace = '';
+  try {
+    hostRace = new URL(url).host;
+  } catch {
+    hostRace = '';
+  }
+  if (hostRace && hostRace !== 'x.com') {
+    fail(`POST.json: the post must live on x.com, got host "${hostRace}". ${REPLACE_HINT}`);
+  }
   fail(REPLACE_HINT);
 }
 

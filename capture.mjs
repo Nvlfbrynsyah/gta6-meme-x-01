@@ -11,7 +11,7 @@ const assets = new Map([
   ['/mark-1024.png', ['image/png', './mark-1024.png']],
 ]);
 const output = process.argv[2] ?? 'meme.png';
-if (!/^meme[0-9]*\.png$/.test(output)) throw new Error('Expected an output name like meme.png or meme2.png');
+if (!/^meme[0-9]*\.png$/.test(output)) throw new Error('Expected an output name like meme.png');
 
 const server = createServer(async (request, response) => {
   const asset = assets.get(request.url);
@@ -36,31 +36,36 @@ await new Promise((resolve, reject) => {
 
 let browser;
 try {
-  const origin = ['http:', '', `${host}:${server.address().port}`].join('/');
+  const origin = `http://${host}:${server.address().port}`;
   browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1200, height: 675 }, deviceScaleFactor: 1 });
+
   const errors = [];
+  const loaded = new Set();
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('requestfailed', (request) => errors.push(`${request.url()}: ${request.failure()?.errorText}`));
-  const loaded = new Set();
   page.on('response', (response) => {
     if (response.status() >= 400) errors.push(`HTTP ${response.status()}: ${response.url()}`);
-    else if (response.ok()) loaded.add(new URL(response.url()).pathname);
+    else loaded.add(new URL(response.url()).pathname);
   });
+
   await page.route('**/*', (route) => {
     const url = new URL(route.request().url());
-    return url.origin === origin ? route.continue() : route.abort('blockedbyclient');
+    if (url.origin !== origin) return route.abort('blockedbyclient');
+    return route.continue();
   });
 
   await page.goto(`${origin}/meme.html`, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready.then(() => undefined));
   await page.waitForFunction(() => {
-    const img = document.querySelector('image');
-    return !!img && img.getBoundingClientRect().width > 0;
+    const image = document.querySelector('image');
+    return !!image && image.getBoundingClientRect().width > 0;
   });
+
   const png = await page.screenshot({ animations: 'disabled' });
   if (!loaded.has('/mark-1024.png')) errors.push('The press-kit ghost did not load');
   if (errors.length) throw new Error(`Meme capture failed:\n${errors.join('\n')}`);
+
   await writeFile(new URL(output, import.meta.url), png);
   console.log(`Rendered ${output} (${png.byteLength} bytes)`);
 } finally {
